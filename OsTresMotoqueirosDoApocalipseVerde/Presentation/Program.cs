@@ -1,4 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using OsTresMotoqueirosDoApocalipseVerde.Infraestructure;
+using System;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// ENV VARIABLES
+builder.Configuration.AddEnvironmentVariables();
+
+var connectionString = builder.Configuration["ConnectionStrings:OracleConnection"];
+
+// DATABASE
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseOracle(connectionString));
+
+// AutoMapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add services to the container.
 
