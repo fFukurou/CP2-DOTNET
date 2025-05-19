@@ -16,5 +16,7 @@ namespace OsTresMotoqueirosDoApocalipseVerde.Domain.Entities
         [Required]
         public string Chassi { get; set; }
 
+        public virtual Motorista Motorista { get; set; }
+
     }
 }

@@ -39,7 +39,7 @@ namespace OsTresMotoqueirosDoApocalipseVerde.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Motos");
+                    b.ToTable("Motos", (string)null);
                 });
 
             modelBuilder.Entity("OsTresMotoqueirosDoApocalipseVerde.Domain.Entities.Motorista", b =>
@@ -61,7 +61,7 @@ namespace OsTresMotoqueirosDoApocalipseVerde.Migrations
 
                     b.HasIndex("MotoId");
 
-                    b.ToTable("Motoristas");
+                    b.ToTable("Motoristas", (string)null);
                 });
 
             modelBuilder.Entity("OsTresMotoqueirosDoApocalipseVerde.Domain.Entities.Motorista", b =>

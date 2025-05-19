@@ -65,12 +65,12 @@ namespace OsTresMotoqueirosDoApocalipseVerde.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteMoto(int id)
         {
-            Moto moto = _context.Motos.FirstOrDefault(motos => motos.Id == id);
-            if (moto == null)
+            Moto endereco = _context.Motos.FirstOrDefault(motos => motos.Id == id);
+            if (endereco == null)
             {
                 return NotFound();
             }
-            _context.Remove(moto);
+            _context.Remove(endereco);
             _context.SaveChanges();
             return NoContent();
         }

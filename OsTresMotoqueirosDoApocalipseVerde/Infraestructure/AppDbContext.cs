@@ -14,8 +14,16 @@ namespace OsTresMotoqueirosDoApocalipseVerde.Infraestructure
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
+            modelBuilder.Entity<Motorista>()
+               .Property(m => m.Plano)
+               .HasConversion<string>();
 
-
+            modelBuilder.Entity<Motorista>()
+                .HasOne(m => m.Moto)
+                .WithOne() 
+                .HasForeignKey<Motorista>(m => m.MotoId)
+                .IsRequired(true) 
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 
