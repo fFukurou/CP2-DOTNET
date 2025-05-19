@@ -25,13 +25,6 @@ namespace OsTresMotoqueirosDoApocalipseVerde.Controllers
         {
             Motorista motorista = _mapper.Map<Motorista>(motoristaDto);
 
-            bool motoJaTemMotorista = _context.Motoristas.Any(m => m.MotoId == motoristaDto.MotoId);
-
-            if (motoJaTemMotorista)
-            {
-                return BadRequest("Esta moto já está atribuída a outro motorista.");
-            }
-
             _context.Motoristas.Add(motorista);
             _context.SaveChanges();
 
@@ -76,15 +69,6 @@ namespace OsTresMotoqueirosDoApocalipseVerde.Controllers
             {
                 return NotFound();
             }
-
-            bool motoJaTemOutroMotorista = _context.Motoristas
-                .Any(m => m.MotoId == motoristaDto.MotoId && m.Id != id);
-
-            if (motoJaTemOutroMotorista)
-            {
-                return BadRequest("Esta moto já está atribuída a outro motorista.");
-            }
-
             _mapper.Map(motoristaDto, motorista);
             _context.SaveChanges();
             return NoContent();

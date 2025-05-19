@@ -11,8 +11,8 @@ using OsTresMotoqueirosDoApocalipseVerde.Infraestructure;
 namespace OsTresMotoqueirosDoApocalipseVerde.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250518231644_create-table-Moto-Motorista")]
-    partial class createtableMotoMotorista
+    [Migration("20250519010723_Create tables Motorista and Motos")]
+    partial class CreatetablesMotoristaandMotos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,7 +53,10 @@ namespace OsTresMotoqueirosDoApocalipseVerde.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("MotoId")
+                    b.Property<int>("MotoId")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.Property<int?>("MotoId1")
                         .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("Plano")
@@ -62,7 +65,12 @@ namespace OsTresMotoqueirosDoApocalipseVerde.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MotoId");
+                    b.HasIndex("MotoId")
+                        .IsUnique();
+
+                    b.HasIndex("MotoId1")
+                        .IsUnique()
+                        .HasFilter("\"MotoId1\" IS NOT NULL");
 
                     b.ToTable("Motoristas");
                 });
@@ -70,10 +78,22 @@ namespace OsTresMotoqueirosDoApocalipseVerde.Migrations
             modelBuilder.Entity("OsTresMotoqueirosDoApocalipseVerde.Domain.Entities.Motorista", b =>
                 {
                     b.HasOne("OsTresMotoqueirosDoApocalipseVerde.Domain.Entities.Moto", "Moto")
-                        .WithMany()
-                        .HasForeignKey("MotoId");
+                        .WithOne()
+                        .HasForeignKey("OsTresMotoqueirosDoApocalipseVerde.Domain.Entities.Motorista", "MotoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("OsTresMotoqueirosDoApocalipseVerde.Domain.Entities.Moto", null)
+                        .WithOne("Motorista")
+                        .HasForeignKey("OsTresMotoqueirosDoApocalipseVerde.Domain.Entities.Motorista", "MotoId1");
 
                     b.Navigation("Moto");
+                });
+
+            modelBuilder.Entity("OsTresMotoqueirosDoApocalipseVerde.Domain.Entities.Moto", b =>
+                {
+                    b.Navigation("Motorista")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

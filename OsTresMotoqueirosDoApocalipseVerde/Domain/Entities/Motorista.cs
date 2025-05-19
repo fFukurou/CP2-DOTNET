@@ -1,5 +1,6 @@
 ﻿using OsTresMotoqueirosDoApocalipseVerde.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OsTresMotoqueirosDoApocalipseVerde.Domain.Entities
 {
@@ -14,6 +15,7 @@ namespace OsTresMotoqueirosDoApocalipseVerde.Domain.Entities
         public Plano Plano { get; set; }
 
         // Foreign key
+        [ForeignKey("Moto")]
         public int? MotoId { get; set; }
         public virtual Moto Moto { get; set; }
     }
